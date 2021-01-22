@@ -50,10 +50,12 @@ class BaseSubsystemConfig extends Config ((site, here, up) => {
 class WithNBigCores(n: Int) extends Config((site, here, up) => {
   case RocketTilesKey => {
     val big = RocketTileParams(
-      core   = RocketCoreParams(mulDiv = Some(MulDivParams(
-        mulUnroll = 8,
-        mulEarlyOut = true,
-        divEarlyOut = true))),
+      core   = RocketCoreParams(
+        mulDiv = Some(MulDivParams(
+          mulUnroll = 8,
+          mulEarlyOut = true,
+          divEarlyOut = true)),
+        haveCFlush = true),
       dcache = Some(DCacheParams(
         rowBits = site(SystemBusKey).beatBits,
         nMSHRs = 0,
